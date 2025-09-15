@@ -1,0 +1,409 @@
+/* General Body Styles */
+body {
+    position: relative;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    text-align: center;
+}
+
+body.dark {
+    background-color: #111; /* Near Black */
+    color: #333;
+}
+
+body.light {
+    background-color: #F0EBD8; /* Soft Off-white */
+    color: #1a1a1a;
+}
+
+/* Night Scene Styles */
+#night-scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place it behind everything */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body.dark #night-scene {
+    opacity: 1;
+}
+
+/* Moon and Stars */
+#stars {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Small stars (dots) */
+#stars::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    top: 0; left: 0;
+    background: #fff;
+    box-shadow: 130px 150px #fff, 280px 220px #fff, 50px 340px #fff, 320px 80px #fff, 450px 290px #fff, 600px 100px #fff, 750px 300px #fff, 900px 50px #fff, 1000px 250px #fff, 1150px 380px #fff, 1300px 150px #fff, 1450px 350px #fff, 180px 450px #fff, 380px 550px #fff, 580px 480px #fff, 780px 520px #fff;
+    animation: firefly-blink 0.5s infinite;
+}
+
+/* Bigger stars (asterisks) */
+#stars::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    top: 0; left: 0;
+    background: #fff;
+    box-shadow: 30px 50px #fff, 80px 120px #fff, 150px 40px #fff, 200px 180px #fff, 250px 90px #fff, 120px 250px #fff, 40px 320px #fff, 220px 350px #fff, 550px 200px #fff, 700px 400px #fff, 850px 180px #fff, 950px 320px #fff, 1100px 80px #fff, 1250px 280px #fff, 1400px 100px #fff, 650px 500px #fff, 820px 30px #fff;
+    animation: firefly-blink 2s infinite;
+}
+
+@keyframes firefly-blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Panda and Rope Styles */
+#panda-container {
+    position: fixed;
+    top: 0;
+    left: 40px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+#panda {
+    width: 80px;
+    height: 70px;
+    background: #F0EBD8; /* Soft Off-white */
+    border: 3px solid #333;
+    border-radius: 50% 50% 40% 40%;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+#panda-container.pulling #panda {
+    transform: translateY(100px);
+}
+
+.ear {
+    width: 25px;
+    height: 25px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+}
+.ear.left { left: 0; }
+.ear.right { right: 0; }
+
+.eye {
+    width: 18px;
+    height: 25px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+}
+.eye.left { left: 15px; }
+.eye.right { right: 15px; }
+
+.eye::after { /* Eye glint */
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.nose {
+    width: 15px;
+    height: 10px;
+    background: #333;
+    border-radius: 50% 50% 40% 40%;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rope {
+    width: 4px;
+    height: 0; /* Starts hidden */
+    background-color: #8B4513; /* SaddleBrown */
+    margin: 0 auto;
+    transition: height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Light Bulb Styles */
+.light-bulb-container {
+    position: fixed;
+    top: 10px;
+    left: 140px; /* Position next to the panda */
+    transform: none;
+    opacity: 1; /* Always visible now */
+    transition: all 0.5s ease;
+}
+
+/* Moon / Sun Element */
+#light-bulb {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+    background-color: #F0EBD8; /* Moon color */
+    position: relative;
+    border: none;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #F0EBD8, 0 0 30px #F0EBD8; /* Moon glow */
+}
+
+/* Remove bulb base and filament */
+#light-bulb::before, #light-bulb::after {
+    display: none;
+}
+
+/* Moon/Sun Face */
+.celestial-eye {
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-bottom: 3px solid #444; /* Closed eye line */
+    top: 35px;
+    transition: all 0.5s ease;
+}
+.celestial-eye.left { left: 25px; }
+.celestial-eye.right { right: 25px; }
+
+.mouth {
+    position: absolute;
+    width: 20px;
+    height: 5px;
+    background-color: transparent;
+    border-bottom: 3px solid #444;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.5s ease;
+}
+
+/* --- Sun State --- */
+body.light #light-bulb {
+    background-color: #F9A620; /* Sun color */
+    box-shadow: 0 0 35px #F9A620, 0 0 60px #F9A620; /* Sun glow */
+}
+
+body.light .celestial-eye {
+    width: 12px;
+    height: 12px;
+    background-color: #444;
+    border: none; /* Remove bottom border */
+    top: 30px;
+}
+
+body.light .mouth {
+    width: 40px;
+    height: 20px;
+    border: 3px solid #444;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 50%;
+    bottom: 20px;
+}
+
+/* Menu Toggle (Hamburger) */
+#menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+#menu-toggle.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#menu-toggle span {
+    width: 100%;
+    height: 4px;
+    background-color: #888;
+    border-radius: 2px;
+    transition: background-color 0.5s ease;
+}
+
+body.light #menu-toggle span {
+    background-color: #333;
+}
+
+/* Navigation Panel */
+#main-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: 1000;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-nav.open {
+    transform: translateX(0);
+}
+
+.nav-link {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin: 15px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Page Content Styles */
+#content-pages {
+    padding: 150px 20px 20px 20px; /* Added top padding */
+    opacity: 1;
+    transition: opacity 0.8s ease 0.3s; /* Fade in after a delay */
+}
+
+#content-pages.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.page {
+    display: none; /* Hide all pages by default */
+    max-width: 650px; /* Set a max width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page.active {
+    display: block; /* Show only the active page */
+}
+
+.page h1, .page h2 {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #333;
+    color: #F0EBD8; /* Soft Off-white */
+    border-radius: 5px;
+}
+
+.page p, .page .contact-info {
+    background-color: rgba(85, 85, 85, 0.7); /* Gray transparent */
+    color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    line-height: 1.6;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #F9A620; /* Gold */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #c88619; /* Darker Gold */
+}
+
+.user-card {
+    background-color: rgba(60, 60, 60, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    border: 1px solid #555;
+}
+
+.user-card p {
+    background-color: transparent !important;
+    padding: 2px 0 !important;
+}
+
+.user-card .actions {
+    text-align: right;
+    margin-top: 10px;
+}
